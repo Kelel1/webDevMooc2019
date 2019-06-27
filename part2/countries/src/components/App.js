@@ -15,9 +15,9 @@ const Search = ({searchCountry, onChange}) => {
 
 }
 
-const ShowView = ({handleShowView}) => {
+const ShowView = ({handleShowView, state}) => {
     return (
-        <button type="submit" onClick={handleShowView}>
+        <button type="submit" onClick={() => handleShowView(state)}>
             show
         </button>
     )
@@ -70,7 +70,7 @@ const Filter = ({countries, searchCountry, handleShowView}) => {
     }
     return (
         <div>
-            {nations.map(state => <div key={state}>{state} <ShowView handleShowView={handleShowView} searchCountry={searchCountry}/></div>)} 
+            {nations.map(state => <div key={state}>{state} <ShowView handleShowView={handleShowView} state={state}/></div>)} 
         </div>
     )
 }
@@ -96,7 +96,7 @@ const App = () => {
         setSearchCountry(event.target.value)
     }
     const handleShowView = (state) => {
-        console.log('hello')
+        setSearchCountry(state)
     }
    
  
@@ -104,7 +104,7 @@ const App = () => {
     // console.log('kuntry: ',[...countries].map(state => state.name));
     // console.log([...countries].map(state => state.flag).indexOf);
     // const a = countries.filter(c => c.population === 'Angola')
-    console.log(countries)
+    // console.log(countries)
     // console.log('second ',{...a}[0]);
 
     
