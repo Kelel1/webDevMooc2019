@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-
-
 import axios from 'axios'
 
-
+// Search field for specific country
 const Search = ({searchCountry, onChange}) => {
     
     return (
@@ -12,59 +10,43 @@ const Search = ({searchCountry, onChange}) => {
                             onChange={onChange}/>
         </div>
     )
-
 }
 
+// Display result for selected country
 const ShowView = ({handleShowView, state}) => {
     return (
-        <button type="submit" onClick={() => handleShowView(state)}>
+        <button onClick={() => handleShowView(state)}>
             show
         </button>
     )
 }
 
-const Filter = ({countries, searchCountry, handleShowView}) => {
-    const nations = [...countries].map(state => state.name).filter(country =>
-         country.toLowerCase().includes(searchCountry.toLowerCase()) && searchCountry.length > 0)
-
-    const flags = [...countries].filter(country =>
-        country.name.toLowerCase().includes(searchCountry.toLowerCase()) &&
-        searchCountry.length > 0).map(state => state.flag)
-
-    const population = [...countries].filter(country => 
-        country.name.toLowerCase().includes(searchCountry.toLowerCase()) &&
-        searchCountry.length > 0).map(state => state.population)
-
-    const capital = [...countries].filter(country =>
-        country.name.toLowerCase().includes(searchCountry.toLowerCase()) &&
-        searchCountry.length > 0).map(state => state.capital)
-
-    const language = [...countries].filter( country =>
-        country.name.toLowerCase().includes(searchCountry.toLowerCase()) &&
-        searchCountry.length > 0).map(state => state.languages)    
-    
+// Display results for filtered country
+const Filter = ({handleShowView, nations, nation}) => {  
+      
     if(nations.length > 10) {
         
-        return(
+        return(             
             <div>                
-                Too many matches. specify another filter
+                Too many matches. specify another filter                
             </div>
         )
-    } else if(nations.length === 1) {
+    } else if(nations.length === 1) {            
 
-        return (
+        return (            
             <div>
                 <h1>
-                    {nations[0]}                        
+                    {nation.name}                                                            
                 </h1>
-                <p>capital {capital[0]}
+                <p>capital {nation.capital}
                     <br></br>
-                    population {population[0]}</p>
+                    population {nation.population}</p>
                 <h3>languages</h3>    
                 <ul>
-                    {language[0].map(lang => <li key={lang.name}>{lang.name}</li>)}       
+                    {nation.languages.map(lang => <li key={lang.name}>{lang.name}</li>)}       
                 </ul>
-                <img src={flags[0]} alt={'flag'} height={'100'} width={'120'}/>   
+                <img src={nation.flag} alt={`${nation.name}'s flag'`} height={'100'} width={'120'}/>   
+                <h1>Weather in {nation.capital}</h1>                
             </div>
         )
     }
@@ -77,41 +59,55 @@ const Filter = ({countries, searchCountry, handleShowView}) => {
 
 const App = () => {
 
-    const hook = () => {
-        console.log('effect')
-        axios
-            .get('https://restcountries.eu/rest/v2/all')
-            .then(response => {
-                console.log('promise fulfilled')              
-                setCountries(response.data)                   
-            })
-    }
-
-    useEffect(hook, [])
-    
     const [searchCountry, setSearchCountry] = useState('')
-    const [countries, setCountries] = useState([])
+    const [countries, setCountries] = useState([])    
+    
+    const [weatherInfo, setweatherInfo] = useState([])
 
     const handleSearch = (event) => {
         setSearchCountry(event.target.value)
     }
     const handleShowView = (state) => {
         setSearchCountry(state)
-    }
-   
- 
-    // console.log('countries: ',{...countries.map(state => state.flag)});
-    // console.log('kuntry: ',[...countries].map(state => state.name));
-    // console.log([...countries].map(state => state.flag).indexOf);
-    // const a = countries.filter(c => c.population === 'Angola')
-    // console.log(countries)
-    // console.log('second ',{...a}[0]);
+        
+    } 
+    const nations = [...countries].map(state => state.name).filter(country =>
+        country.toLowerCase().includes(searchCountry.toLowerCase()) && searchCountry.length > 0)
+       
+   const nation = countries[countries.findIndex(c => c.name.toLowerCase().includes(searchCountry.toLowerCase()) && searchCountry.length > 0)]
 
+
+    const hook = () => {
+     
+        axios
+            .get('https://restcountries.eu/rest/v2/all')
+            .then(response => {                              
+                setCountries(countries.concat(response.data))                   
+            })
+    }
+    useEffect(hook, [])     
+    // ======================================================================================= Code block in question
+    const hook1 = (capital) => {
+        axios
+            .get('http://api.apixu.com/v1/current.json?key=803c703bcf794920bc6204328192706&q='+ capital)
+            .then(response => {  
+                                
+                setweatherInfo(weatherInfo.concat(response.data.current))
+            })           
+    } 
+
+    useEffect(() => {
+        if(nations.length === 1) {               
+                return hook1(nation.capital)
+            } 
+    })
+    //========================================================================================= 
     
+  
     return(
-        <div>
+        <div>            
             <Search searchCountry={searchCountry} onChange={handleSearch}/>
-            <Filter countries={countries} searchCountry={searchCountry} handleShowView={handleShowView}/>
+            <Filter handleShowView={handleShowView} nations={nations} nation={nation}/>
         </div>
     )
 
