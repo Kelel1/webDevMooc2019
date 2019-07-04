@@ -13,7 +13,7 @@ const App = () => {
       .get('http://localhost:3001/persons')
       .then(response => {
         
-        setPersons(response.data)
+        setPersons(persons.concat(response.data))
       })
 
   }
@@ -34,7 +34,7 @@ const App = () => {
     const personObject = {
         name: newName,
         number: newNumber
-    }    
+    }   
     
     const duplicate = persons.filter((person) => newName === person.name)
 
@@ -45,11 +45,17 @@ const App = () => {
       setNewNumber('')  
       
     } else {
-      setPersons(persons.concat(personObject))   
+      setPersons(persons.concat(personObject))         
       setNewName('')
-      setNewNumber('')        
+      setNewNumber('')  
+      
+      axios
+        .post('http://localhost:3001/persons', personObject)
+        .then(response => {
+          console.log(response);
+        })
 
-    }   
+    }
        
   }
 
