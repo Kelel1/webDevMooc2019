@@ -3,30 +3,38 @@ import Display from './Display'
 import Form from './Form'
 import Filter from './Filter'
 
-import axios from 'axios'
+// import axios from 'axios'
+import personService from '../services/persons'
 
 const App = () => {
 
-  const hook = () => {
+  // const hook = () => {
     
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
+  //   axios
+  //     .get('http://localhost:3001/persons')
+  //     .then(response => {
         
-        setPersons(persons.concat(response.data))
-      })
+  //       setPersons(persons.concat(response.data))
+  //     })
 
-  }
-  useEffect(hook, [])
+  // }
+  // useEffect(hook, [])
+  
   const [persons, setPersons] = useState([])
-  const [ newName, setNewName ] = useState('')    
-
+  const [ newName, setNewName ] = useState('')      
   const [ newNumber, setNewNumber ] = useState('')
 
   const [ searchName, setSearchName ] = useState('')
-
   
   const  nameToSearch = searchName.toLowerCase()  
+
+  useEffect(() => {
+    personService
+      .getAll()
+      .then(response => {
+        setPersons(response.data)
+      })
+  }, [])
 
     const addPerson = (event) => {
     event.preventDefault()    
@@ -44,14 +52,14 @@ const App = () => {
       setNewName('')
       setNewNumber('')  
       
-    } else {
-      setPersons(persons.concat(personObject))         
-      setNewName('')
-      setNewNumber('')  
+    } else {    
       
-      axios
-        .post('http://localhost:3001/persons', personObject)
+      personService
+        .create(personObject)
         .then(response => {
+          setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')
           console.log(response);
         })
 
