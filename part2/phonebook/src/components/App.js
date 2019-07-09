@@ -2,23 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Display from './Display'
 import Form from './Form'
 import Filter from './Filter'
-
-// import axios from 'axios'
 import personService from '../services/persons'
 
-const App = () => {
-
-  // const hook = () => {
-    
-  //   axios
-  //     .get('http://localhost:3001/persons')
-  //     .then(response => {
-        
-  //       setPersons(persons.concat(response.data))
-  //     })
-
-  // }
-  // useEffect(hook, [])
+const App = () => {  
   
   const [persons, setPersons] = useState([])
   const [ newName, setNewName ] = useState('')      
@@ -31,8 +17,8 @@ const App = () => {
   useEffect(() => {
     personService
       .getAll()
-      .then(response => {
-        setPersons(response.data)
+      .then(persons => {
+        setPersons(persons)
       })
   }, [])
 
@@ -45,27 +31,41 @@ const App = () => {
     }   
     
     const duplicate = persons.filter((person) => newName === person.name)
+   
+    const replaceNumber = () => {
+      if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const findName = duplicate[0]
+        const id = duplicate[0].id
+        const changeNumber = {...findName, number: newNumber}
+        personService
+          .update(id, changeNumber)
+          .then(returnedPerson => {setPersons(persons.map(person => person.id !== id ? person: returnedPerson))})
+          setNewName('')
+          setNewNumber('')
+      } else {
+        setNewName('')
+        setNewNumber('')  
+
+      }
+    }
 
     if(duplicate.length > 0) {
-      
-      alert(`${newName} is already added to phonebook`)
-      setNewName('')
-      setNewNumber('')  
+      replaceNumber()
       
     } else {    
       
       personService
         .create(personObject)
-        .then(response => {
-          setPersons(persons.concat(response.data))
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
           setNewName('')
-          setNewNumber('')
-          console.log(response);
+          setNewNumber('')          
         })
 
     }
        
   }
+
 
   const handleNameChange = (event) => {
       setNewName(event.target.value)
@@ -89,7 +89,7 @@ const App = () => {
             newNumber={newNumber} handleNumberChange={handleNumberChange} onSubmit={addPerson}/>             
       <h2>Numbers</h2>
       <div>        
-        <Display persons={persons.filter(person => person.name.toLowerCase().includes(nameToSearch))}/>
+        <Display persons={persons} setPersons={setPersons} nameToSearch={nameToSearch}/>        
       </div>
       
     </div>
