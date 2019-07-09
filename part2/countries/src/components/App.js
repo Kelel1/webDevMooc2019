@@ -82,25 +82,32 @@ const App = () => {
         axios
             .get('https://restcountries.eu/rest/v2/all')
             .then(response => {                              
-                setCountries(countries.concat(response.data))                   
+                setCountries(response.data)                   
             })
     }
     useEffect(hook, [])     
     // ======================================================================================= Code block in question
-    const hook1 = (capital) => {
-        axios
-            .get('http://api.apixu.com/v1/current.json?key=803c703bcf794920bc6204328192706&q='+ capital)
+     useEffect(() => {
+        if(nations.length === 1) {               
+            axios
+            .get('http://api.apixu.com/v1/current.json?key=803c703bcf794920bc6204328192706&q='+ nation.capital)
             .then(response => {  
                                 
-                setweatherInfo(weatherInfo.concat(response.data.current))
-            })           
-    } 
-
-    useEffect(() => {
-        if(nations.length === 1) {               
-                return hook1(nation.capital)
-            } 
-    })
+                setweatherInfo(response.data.current)
+                // if (weatherInfo.length >= 1) {
+                //     setSearchCountry('')
+                // }
+                
+                
+            })
+            
+              // return hook1(nation.capital)
+            }
+          
+             
+    }, [nations.length, nation, weatherInfo])
+    console.log(weatherInfo);
+  
     //========================================================================================= 
     
   

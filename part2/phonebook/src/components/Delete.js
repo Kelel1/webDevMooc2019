@@ -2,8 +2,11 @@ import React from 'react'
 
 import personService from '../services/persons'
 
+/**
+ * 
+ * Delete dontacts from phonebook 
+ */
 const Delete = ({id, setPersons, persons}) => {
-
     const removePerson = id => {
         const person = persons.find(p => p.id === id)
 
@@ -14,12 +17,9 @@ const Delete = ({id, setPersons, persons}) => {
             setPersons(persons.filter(p => p.id !== id))
            
           })
-        }
-    
-        
+        }     
           
-        }
-
+      }
 
     return (
         <button onClick={() => removePerson(id)}>delete</button>

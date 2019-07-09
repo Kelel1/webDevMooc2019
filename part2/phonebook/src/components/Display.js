@@ -1,6 +1,10 @@
 import React from 'react'
 import Delete from './Delete'
 
+/**
+ * 
+ * Display phonebook contacts
+ */
 const Display = ({persons, setPersons, nameToSearch}) => {
   
     return(
