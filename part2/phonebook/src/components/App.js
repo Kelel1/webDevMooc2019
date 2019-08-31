@@ -85,6 +85,10 @@ const App = () => {
           setNewName('')
           setNewNumber('')          
         })
+        .catch(error => {
+          // Display warnings for names/numbers that are too short          
+          setWarning(`${error.response.data.error}`);
+        })
 
     }
        
