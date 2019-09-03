@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
 
 
-const Form = ({ handleLogin, username, password, setUsername, setPassword }) => {
+const Form = (props) => { 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={props.handleLogin}>
       <div>
         username
         <input
         type="text"
-        value={username}
+        value={props.username}
         name="Username"
-        onChange={({ target }) => setUsername(target.value)}
+        onChange={({ target }) => props.setUsername(target.value)}
         />
       <div>
         password
           <input
           type="password"
-          value={password}
+          value={props.password}
           name="Password"
-          onChange={({ target }) => setPassword(target.value)}
+          onChange={({ target }) => props.setPassword(target.value)}
           />
       </div>
       </div>
