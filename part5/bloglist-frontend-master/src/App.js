@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import loginService from './services/login'
 import blogService from './services/blogs'
 import Blog from './components/Blog'
@@ -32,20 +32,27 @@ const Form = (props) => {
 
 
 const App = () => {
-  const [blogs, setBlogs] = useState([
-    {
-      "title": "09/04/2019",
-      "author": "Kalel",
-      "url": "www.dayof.com",
-      "user": "5d680c41332b07308b5312b1",
-      "likes": 330,
-      "id": "5d6fa3e97f3a6a4ca53c19dd"
-  }
-  ])
+  const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    blogService
+      .getAll().then(initialBlogs => {
+        setBlogs(initialBlogs)
+      })
+  }, [])
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      blogService.setToken(user.token)
+    }
+  }, [])
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -54,6 +61,9 @@ const App = () => {
         username, password,
       })
 
+      window.localStorage.setItem(
+        'loggedBlogappUser', JSON.stringify(user)
+      )
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -85,6 +95,7 @@ const App = () => {
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
+      <button type="reset">Logout</button>
     </div>
   )
 }
