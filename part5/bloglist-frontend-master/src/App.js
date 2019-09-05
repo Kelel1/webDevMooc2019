@@ -3,14 +3,20 @@ import loginService from './services/login'
 import blogService from './services/blogs'
 import Blog from './components/Blog'
 import Form from './components/Form'
+import CreateBlog from './components/CreateBlog'
 
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
+  const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
+  
+  
 
   useEffect(() => {
     blogService
@@ -27,6 +33,7 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -48,6 +55,29 @@ const App = () => {
         setErrorMessage(null)
       }, 5000)
     }
+  }
+
+  const handleCreate = async (event) => {
+    event.preventDefault()     
+    try {
+      const newObject = {
+        "title": title,
+        "author": author,
+        "url": url
+      }    
+    const createBlog = await blogService
+      .create(newObject)    
+    setBlogs(blogs.concat(createBlog))
+
+    setTitle('')
+    setAuthor('')
+    setUrl('')  
+    } catch(exception) {
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    } 
+
   }
   
   const handleLogout = async (event) => {
@@ -71,8 +101,7 @@ const App = () => {
         <h1>
           Log into Blog-List        
         </h1>
-        <Form handleLogin = { handleLogin } username = { username } password = { password }
-                setUsername = { setUsername } setPassword = { setPassword }/>
+        <Form handleLogin = { handleLogin } setUsername = { setUsername } setPassword = { setPassword }/>
       </div>
     )
   }
@@ -80,11 +109,13 @@ const App = () => {
   return (
     <div>
       <h2>Blogs</h2>
-      <p> {user.name} logged in</p>
+      <p> {user.name} logged in <button onClick={handleLogout}>Logout</button></p>
+      <h2>Create new blog</h2>
+      <CreateBlog handleCreate = { handleCreate } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
-      <button onClick={handleLogout}>Logout</button>
+      
     </div>
   )
 }
