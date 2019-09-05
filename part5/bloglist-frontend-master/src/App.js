@@ -2,33 +2,7 @@ import React, { useState, useEffect } from 'react'
 import loginService from './services/login'
 import blogService from './services/blogs'
 import Blog from './components/Blog'
-
-
-const Form = (props) => { 
-  return (
-    <form onSubmit={props.handleLogin}>
-      <div>
-        username
-        <input
-        type="text"
-        value={props.username}
-        name="Username"
-        onChange={({ target }) => props.setUsername(target.value)}
-        />
-      <div>
-        password
-          <input
-          type="password"
-          value={props.password}
-          name="Password"
-          onChange={({ target }) => props.setPassword(target.value)}
-          />
-      </div>
-      </div>
-      <button type="submit">Login</button>
-    </form>
-  )
-}
+import Form from './components/Form'
 
 
 const App = () => {
