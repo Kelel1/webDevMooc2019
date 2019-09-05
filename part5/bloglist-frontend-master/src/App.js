@@ -74,7 +74,22 @@ const App = () => {
         setErrorMessage(null)
       }, 5000)
     }
-  }  
+  }
+  
+  const handleLogout = async (event) => {
+    event.preventDefault()
+    try {
+      window.localStorage.clear()
+      window.location.reload()
+    } catch (exception) {
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    
+
+    }
+    
+  }
 
   if (user === null) {
     return (
@@ -95,7 +110,7 @@ const App = () => {
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
-      <button type="reset">Logout</button>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   )
 }
