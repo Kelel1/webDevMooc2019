@@ -1,7 +1,7 @@
 import React from 'react'
 const CreateBlog = (props) => {
     return (
-        <form onSubmit={() => props.handleCreate}>
+        <form onSubmit={(props.handleCreate)}>
             <div>
                 title:
                 <input

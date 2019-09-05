@@ -101,7 +101,8 @@ const App = () => {
         <h1>
           Log into Blog-List        
         </h1>
-        <Form handleLogin = { handleLogin } setUsername = { setUsername } setPassword = { setPassword }/>
+        <Form handleLogin = { handleLogin } setUsername = { setUsername } setPassword = { setPassword }
+              username = { username } password = { password }/>
       </div>
     )
   }
@@ -111,7 +112,8 @@ const App = () => {
       <h2>Blogs</h2>
       <p> {user.name} logged in <button onClick={handleLogout}>Logout</button></p>
       <h2>Create new blog</h2>
-      <CreateBlog handleCreate = { handleCreate } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
+      <CreateBlog handleCreate = { handleCreate } title = { title }
+                  author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
