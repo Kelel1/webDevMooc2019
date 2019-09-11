@@ -29,7 +29,7 @@ const CreateBlog = (props) => {
                 />
             </div>
             </div>
-            <button type="submit">create</button>
+            <button type="submit">Add</button>
         </form>
     )
 }

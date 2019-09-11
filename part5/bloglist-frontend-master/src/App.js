@@ -107,7 +107,7 @@ const App = () => {
     return (
       <div>
         <div style={hideWhenVisible}>
-          <button onClick={() => setBlogsVisible(true)}>Create Blog</button>
+          <button onClick={() => setBlogsVisible(true)}>Add Blog</button>
         </div>
         <div style={showWhenVisible}>
           <CreateBlog handleCreate = { handleCreate } title = { title }
@@ -137,7 +137,7 @@ const App = () => {
       <h2>Blogs</h2>
       <Notification validation = { validation } errorMessage = { errorMessage } />
       <p> {user.name} logged in <button onClick={handleLogout}>Logout</button></p>
-      <h2>Create new blog</h2>
+      <h2>Create a new blog</h2>
       { createBlogForm() }
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
