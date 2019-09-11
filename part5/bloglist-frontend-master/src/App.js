@@ -5,11 +5,11 @@ import Blog from './components/Blog'
 import Form from './components/Form'
 import Notification from './components/Notification'
 import CreateBlog from './components/CreateBlog'
-
+import Toggable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [blogsVisible, setBlogsVisible] = useState(false)
+  // const [blogsVisible, setBlogsVisible] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
   const [validation, setValidation] = useState(null)
   const [user, setUser] = useState(null)
@@ -100,25 +100,7 @@ const App = () => {
     }
     
   }
-  const createBlogForm = () => {
-    const hideWhenVisible = { display: blogsVisible ? 'none' : '' }
-    const showWhenVisible = { display: blogsVisible ? '' : 'none' }
-
-    return (
-      <div>
-        <div style={hideWhenVisible}>
-          <button onClick={() => setBlogsVisible(true)}>Add Blog</button>
-        </div>
-        <div style={showWhenVisible}>
-          <CreateBlog handleCreate = { handleCreate } title = { title }
-                    author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
-          <button onClick={() => setBlogsVisible(false)}>Cancel</button>
-        </div>
-      </div>
-      
-    )
-  }
-
+  
   if (user === null) {
     return (
       <div>
@@ -137,8 +119,11 @@ const App = () => {
       <h2>Blogs</h2>
       <Notification validation = { validation } errorMessage = { errorMessage } />
       <p> {user.name} logged in <button onClick={handleLogout}>Logout</button></p>
-      <h2>Create a new blog</h2>
-      { createBlogForm() }
+      <h2>Create a new blog</h2>      
+      <Toggable buttonLabel='Create'>
+        <CreateBlog handleCreate = { handleCreate } title = { title }
+                      author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
+      </Toggable>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
