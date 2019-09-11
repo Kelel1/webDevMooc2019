@@ -9,8 +9,9 @@ import CreateBlog from './components/CreateBlog'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [blogsVisible, setBlogsVisible] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
-  const [valdation, setValidation] = useState(null)
+  const [validation, setValidation] = useState(null)
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -52,7 +53,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Wrong credentials')
+      setErrorMessage('Wrong username or password')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
@@ -70,7 +71,10 @@ const App = () => {
     const createBlog = await blogService
       .create(newObject)    
     setBlogs(blogs.concat(createBlog))
-
+    setValidation(`New blog ${ newObject.title } by ${ newObject.author } added.`)
+    setTimeout(() => {
+      setValidation(null)
+    }, 5000)
     setTitle('')
     setAuthor('')
     setUrl('')  
@@ -96,6 +100,24 @@ const App = () => {
     }
     
   }
+  const createBlogForm = () => {
+    const hideWhenVisible = { display: blogsVisible ? 'none' : '' }
+    const showWhenVisible = { display: blogsVisible ? '' : 'none' }
+
+    return (
+      <div>
+        <div style={hideWhenVisible}>
+          <button onClick={() => setBlogsVisible(true)}>Create Blog</button>
+        </div>
+        <div style={showWhenVisible}>
+          <CreateBlog handleCreate = { handleCreate } title = { title }
+                    author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
+          <button onClick={() => setBlogsVisible(false)}>Cancel</button>
+        </div>
+      </div>
+      
+    )
+  }
 
   if (user === null) {
     return (
@@ -103,6 +125,7 @@ const App = () => {
         <h1>
           Log into Blog-List        
         </h1>
+        <Notification validation = { validation } errorMessage = { errorMessage } />
         <Form handleLogin = { handleLogin } setUsername = { setUsername } setPassword = { setPassword }
               username = { username } password = { password }/>
       </div>
@@ -112,10 +135,10 @@ const App = () => {
   return (
     <div>
       <h2>Blogs</h2>
+      <Notification validation = { validation } errorMessage = { errorMessage } />
       <p> {user.name} logged in <button onClick={handleLogout}>Logout</button></p>
       <h2>Create new blog</h2>
-      <CreateBlog handleCreate = { handleCreate } title = { title }
-                  author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
+      { createBlogForm() }
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
