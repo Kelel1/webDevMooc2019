@@ -1,3 +1,6 @@
+body {
+  background-color: rgba(133, 96, 96, 0.945)
+}
 h1 {
     color: blue
 }
@@ -20,3 +23,7 @@ h1 {
     padding: 10px;
     margin-bottom: 10px; 
   }
+
+h2 {
+  color: white
+}

@@ -9,7 +9,6 @@ import Toggable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  // const [blogsVisible, setBlogsVisible] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
   const [validation, setValidation] = useState(null)
   const [user, setUser] = useState(null)
