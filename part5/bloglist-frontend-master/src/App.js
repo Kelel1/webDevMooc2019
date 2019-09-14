@@ -99,6 +99,15 @@ const App = () => {
     }
     
   }
+
+  const handleLikes = async (event) => {
+    try {
+      const updateLikes = await blogService
+        .update()
+    } catch (exception) {
+
+    }
+  }
   
   if (user === null) {
     return (
