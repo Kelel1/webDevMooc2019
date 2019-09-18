@@ -23,15 +23,15 @@ const create = async newObject => {
   return response.data
 }
 
-// const update = (id, newObject) => {
-//   const request = axios.put(`${ baseUrl } /${id}`, newObject)
-//   return request.then(response => response.data)
-// }
+const update = (id, newObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newObject)
+  return request.then(response => response.data)
+}
 
 //  my attempt at async update 9.13.19
-const update = async (id, newObject) => {
-  const request = await axios.put(`${ baseUrl } /${id}`, newObject)
-  const response = await request.data
-  return response
-}
+// const update = async (id, newObject) => {
+//   const request = await axios.put(`${baseUrl}/${id}`, newObject)
+//   const response = await request.data
+//   return response
+// }
 export default { getAll, create, update, setToken }

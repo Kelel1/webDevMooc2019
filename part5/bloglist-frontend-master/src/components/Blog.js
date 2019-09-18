@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleLikes}) => {
   const [clicked, setClicked] = useState(false)
 
   const blogStyle = {
@@ -18,7 +18,7 @@ const Blog = ({ blog }) => {
     <div style={blogStyle}>
       {clicked ? <div onClick={() => setClicked(false)}>
       {blog.title} {blog.author} <br></br> {blog.url}
-      <br></br> {blog.likes} likes <button type="submit">like</button><br></br> added by {blog.user['username']} </div> : <div onClick={() => setClicked(true)}>
+      <br></br> <div>{blog.likes} likes <button onClick={() => handleLikes(blog.id)}>like</button></div><br></br> added by {blog.user['username']} </div> : <div onClick={() => setClicked(true)}>
       {blog.title} {blog.author}</div>}      
     </div>
   

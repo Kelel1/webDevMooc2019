@@ -12,6 +12,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [validation, setValidation] = useState(null)
   const [user, setUser] = useState(null)
+  // const [likes, setLikes] = useState(0)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [title, setTitle] = useState('')
@@ -85,8 +86,7 @@ const App = () => {
 
   }
   
-  const handleLogout = async (event) => {
-    event.preventDefault()
+  const handleLogout = async (event) => {    
     try {
       window.localStorage.clear()
       window.location.reload()
@@ -100,13 +100,17 @@ const App = () => {
     
   }
 
-  const handleLikes = async (event) => {
-    try {
-      const updateLikes = await blogService
-        .update()
-    } catch (exception) {
-
-    }
+  const handleLikes = id => {
+    
+      const blog = blogs.find(x => x.id = id)
+      const updateLike = {...blog, likes: () => blog.likes + 1}
+      
+      blogService
+        .update(id, updateLike)
+        .then(response => {
+          setBlogs(blogs.map(blog => blog.id !== id ? blog : response.data))
+        })
+    
   }
   
   if (user === null) {
@@ -133,7 +137,7 @@ const App = () => {
                       author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
       </Toggable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} handleLikes={handleLikes} />
       )}
       
     </div>
