@@ -7,12 +7,12 @@ import Notification from './components/Notification'
 import CreateBlog from './components/CreateBlog'
 import Toggable from './components/Togglable'
 
+
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
   const [validation, setValidation] = useState(null)
   const [user, setUser] = useState(null)
-  // const [likes, setLikes] = useState(0)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [title, setTitle] = useState('')
@@ -102,16 +102,22 @@ const App = () => {
 
   const handleLikes = id => {
     
-      const blog = blogs.find(x => x.id = id)
-      const updateLike = {...blog, likes: () => blog.likes + 1}
+      const blog = blogs.find(x => x.id === id)
+      const updateLike = {...blog, likes: blog.likes + 1}
       
       blogService
         .update(id, updateLike)
-        .then(response => {
+        .then(response => 
           setBlogs(blogs.map(blog => blog.id !== id ? blog : response.data))
-        })
+        )
     
   }
+
+  const blogList = () => blogs.map(blog =>
+    <Blog
+      key={blog.id} 
+      blog={blog} handleLikes={handleLikes} />
+    )
   
   if (user === null) {
     return (
@@ -136,10 +142,7 @@ const App = () => {
         <CreateBlog handleCreate = { handleCreate } title = { title }
                       author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
       </Toggable>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} handleLikes={handleLikes} />
-      )}
-      
+      {blogList()}
     </div>
   )
 }

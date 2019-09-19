@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Blog = ({ blog, handleLikes}) => {
+const Blog = ({blog, handleLikes}) => {
   const [clicked, setClicked] = useState(false)
 
   const blogStyle = {
