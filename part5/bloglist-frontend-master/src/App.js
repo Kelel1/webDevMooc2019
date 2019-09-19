@@ -108,7 +108,7 @@ const App = () => {
       blogService
         .update(id, updateLike)
         .then(response => 
-          setBlogs(blogs.map(blog => blog.id !== id ? blog : response.data))
+          setBlogs(blogs.map(blog => blog.id !== id ? blog : response))
         )
     
   }
