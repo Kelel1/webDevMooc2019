@@ -17,9 +17,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
-  
-  
+  const [url, setUrl] = useState('')  
 
   useEffect(() => {
     blogService
@@ -37,7 +35,7 @@ const App = () => {
     }
   }, [])
 
-
+// Login event-handler
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -60,6 +58,7 @@ const App = () => {
     }
   }
 
+  // Creat blog event-handler
   const handleCreate = async (event) => {
     event.preventDefault()     
     try {
@@ -100,6 +99,7 @@ const App = () => {
     
   }
 
+  // Like event handler
   const handleLikes = id => {
     
       const blog = blogs.find(x => x.id === id)
@@ -113,11 +113,17 @@ const App = () => {
     
   }
 
-  const blogList = () => blogs.map(blog =>
+  // Display list of blogs
+  const blogList = () => blogs.map(blog =>    
     <Blog
       key={blog.id} 
       blog={blog} handleLikes={handleLikes} />
     )
+
+  // Sort blogs by number of likes
+  const sortBlogs = (blogs) => {
+    blogs.sort((a, b) => {return b.likes - a.likes})
+  }
   
   if (user === null) {
     return (
@@ -142,6 +148,7 @@ const App = () => {
         <CreateBlog handleCreate = { handleCreate } title = { title }
                       author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
       </Toggable>
+      {sortBlogs(blogs)}
       {blogList()}
     </div>
   )
