@@ -58,7 +58,7 @@ const App = () => {
     }
   }
 
-  // Creat blog event-handler
+  // Create blog event-handler
   const handleCreate = async (event) => {
     event.preventDefault()     
     try {
@@ -113,11 +113,21 @@ const App = () => {
     
   }
 
+  // Delete Blog event-handler
+  const deleteBlog = id => {
+
+    const blog = blogs.find(x => x.id === id)
+    
+    blogService
+      .remove(id, blog)
+    setBlogs(blogs.filter(b => b.id !== id))
+  }
+
   // Display list of blogs
   const blogList = () => blogs.map(blog =>    
     <Blog
       key={blog.id} 
-      blog={blog} handleLikes={handleLikes} />
+      blog={blog} handleLikes={handleLikes}  deleteBlog={deleteBlog} />
     )
 
   // Sort blogs by number of likes
