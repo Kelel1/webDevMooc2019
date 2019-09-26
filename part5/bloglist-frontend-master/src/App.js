@@ -17,8 +17,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')  
-
+  const [url, setUrl] = useState('')
   useEffect(() => {
     blogService
       .getAll().then(initialBlogs => {
@@ -35,7 +34,7 @@ const App = () => {
     }
   }, [])
 
-// Login event-handler
+  // Login event-handler
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -60,32 +59,30 @@ const App = () => {
 
   // Create blog event-handler
   const handleCreate = async (event) => {
-    event.preventDefault()     
+    event.preventDefault()
     try {
       const newObject = {
-        "title": title,
-        "author": author,
-        "url": url
-      }    
-    const createBlog = await blogService
-      .create(newObject)    
-    setBlogs(blogs.concat(createBlog))
-    setValidation(`New blog ${ newObject.title } by ${ newObject.author } added.`)
-    setTimeout(() => {
-      setValidation(null)
-    }, 5000)
-    setTitle('')
-    setAuthor('')
-    setUrl('')  
+        'title': title,
+        'author': author,
+        'url': url
+      }
+      const createBlog = await blogService
+        .create(newObject)
+      setBlogs(blogs.concat(createBlog))
+      setValidation(`New blog ${ newObject.title } by ${ newObject.author } added.`)
+      setTimeout(() => {
+        setValidation(null)
+      }, 5000)
+      setTitle('')
+      setAuthor('')
+      setUrl('')
     } catch(exception) {
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
-    } 
-
+    }
   }
-  
-  const handleLogout = async (event) => {    
+  const handleLogout = async () => {
     try {
       window.localStorage.clear()
       window.location.reload()
@@ -93,57 +90,48 @@ const App = () => {
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
-    
-
     }
-    
   }
 
   // Like event handler
   const handleLikes = id => {
-    
-      const blog = blogs.find(x => x.id === id)
-      const updateLike = {...blog, likes: blog.likes + 1}
-      
-      blogService
-        .update(id, updateLike)
-        .then(response => 
-          setBlogs(blogs.map(blog => blog.id !== id ? blog : response))
-        )
-    
+    const blog = blogs.find(x => x.id === id)
+    const updateLike = { ...blog, likes: blog.likes + 1 }
+    blogService
+      .update(id, updateLike)
+      .then(response =>
+        setBlogs(blogs.map(blog => blog.id !== id ? blog : response))
+      )
   }
 
   // Delete Blog event-handler
   const deleteBlog = id => {
 
-    // const blog = blogs.find(x => x.id === id)
-    
     blogService
       .remove(id)
     setBlogs(blogs.filter(b => b.id !== id))
   }
 
   // Display list of blogs
-  const blogList = () => blogs.map(blog =>    
+  const blogList = () => blogs.map(blog =>
     <Blog
-      key={blog.id} 
+      key={blog.id}
       blog={blog} handleLikes={handleLikes}  deleteBlog={deleteBlog} user ={user} />
-    )
+  )
 
   // Sort blogs by number of likes
   const sortBlogs = (blogs) => {
     blogs.sort((a, b) => {return b.likes - a.likes})
   }
-  
   if (user === null) {
     return (
       <div>
         <h1>
-          Log into Blog-List        
+          Log into Blog-List
         </h1>
         <Notification validation = { validation } errorMessage = { errorMessage } />
         <Form handleLogin = { handleLogin } setUsername = { setUsername } setPassword = { setPassword }
-              username = { username } password = { password }/>
+          username = { username } password = { password }/>
       </div>
     )
   }
@@ -153,10 +141,10 @@ const App = () => {
       <h2>Blogs</h2>
       <Notification validation = { validation } errorMessage = { errorMessage } />
       <p> {user.name} logged in <button onClick={handleLogout}>Logout</button></p>
-      <h2>Create a new blog</h2>      
+      <h2>Create a new blog</h2>
       <Toggable buttonLabel='Create'>
         <CreateBlog handleCreate = { handleCreate } title = { title }
-                      author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
+          author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
       </Toggable>
       {sortBlogs(blogs)}
       {blogList()}
@@ -164,4 +152,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default App

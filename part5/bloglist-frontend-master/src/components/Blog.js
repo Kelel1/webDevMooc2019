@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
-const Blog = ({blog, handleLikes, deleteBlog, user}) => {
+const Blog = ({ blog, handleLikes, deleteBlog, user }) => {
   const [clicked, setClicked] = useState(false)
 
   const blogStyle = {
@@ -19,7 +19,7 @@ const Blog = ({blog, handleLikes, deleteBlog, user}) => {
 
     if (user.username === blog.user['username']) {
       return (
-        <button onClick={() => deleteBlog(blog.id)}>Remove</button> 
+        <button onClick={() => deleteBlog(blog.id)}>Remove</button>
       )
     }
   }
@@ -27,13 +27,12 @@ const Blog = ({blog, handleLikes, deleteBlog, user}) => {
   return (
     <div style={blogStyle}>
       {clicked ? <div onClick={() => setClicked(false)}>
-      {blog.title} {blog.author} <br></br> {blog.url}
-      <br></br> <div>{blog.likes} likes <button onClick={() => handleLikes(blog.id)}>like</button></div>
-      <div>added by {blog.user['username']}</div>
-      {showDelete()}</div> : <div onClick={() => setClicked(true)}>
-      {blog.title} {blog.author}</div>}      
+        {blog.title} {blog.author} <br></br> {blog.url}
+        <br></br> <div>{blog.likes} likes <button onClick={() => handleLikes(blog.id)}>like</button></div>
+        <div>added by {blog.user['username']}</div>
+        {showDelete()}</div> : <div onClick={() => setClicked(true)}>
+        {blog.title} {blog.author}</div>}
     </div>
-  
-)}
+  )}
 
 export default Blog
