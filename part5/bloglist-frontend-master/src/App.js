@@ -116,10 +116,10 @@ const App = () => {
   // Delete Blog event-handler
   const deleteBlog = id => {
 
-    const blog = blogs.find(x => x.id === id)
+    // const blog = blogs.find(x => x.id === id)
     
     blogService
-      .remove(id, blog)
+      .remove(id)
     setBlogs(blogs.filter(b => b.id !== id))
   }
 
