@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Blog = ({blog, handleLikes, deleteBlog}) => {
+const Blog = ({blog, handleLikes, deleteBlog, user}) => {
   const [clicked, setClicked] = useState(false)
 
   const blogStyle = {
@@ -14,13 +14,23 @@ const Blog = ({blog, handleLikes, deleteBlog}) => {
     borderRadius: 5
   }
 
+  // Allow blogs to be deleted only if blog post created by user
+  const showDelete = () => {
+
+    if (user.username === blog.user['username']) {
+      return (
+        <button onClick={() => deleteBlog(blog.id)}>Remove</button> 
+      )
+    }
+  }
+
   return (
     <div style={blogStyle}>
       {clicked ? <div onClick={() => setClicked(false)}>
       {blog.title} {blog.author} <br></br> {blog.url}
       <br></br> <div>{blog.likes} likes <button onClick={() => handleLikes(blog.id)}>like</button></div>
       <div>added by {blog.user['username']}</div>
-      <button onClick={() => deleteBlog(blog.id)}>Remove</button> </div> : <div onClick={() => setClicked(true)}>
+      {showDelete()}</div> : <div onClick={() => setClicked(true)}>
       {blog.title} {blog.author}</div>}      
     </div>
   
