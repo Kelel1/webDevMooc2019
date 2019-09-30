@@ -6,7 +6,7 @@ import SimpleBlog from './SimpleBlog'
 
 afterEach(cleanup)
 
-test('renders content', () => {
+test('renders title', () => {
 
   const blog = {
     title: 'Testing with Jest',
@@ -21,8 +21,6 @@ test('renders content', () => {
 
   expect(component.container).toHaveTextContent(
     'Testing with Jest',
-    'Kel Elden',
-    'www.testingjest.come'
   )
 
 })
@@ -41,6 +39,26 @@ test('renders likes', () => {
 
   const div = component.container.querySelector('.likes')
   expect(div).toHaveTextContent(
-    `blog has ${blog.likes} likes`
+    '384'
   )
+})
+
+test('renders author', () => {
+
+  const blog = {
+    title: 'Testing with Jest',
+    author: 'Kel Elden',
+    url: 'www.testingjest.com',
+    likes: 384
+  }
+
+  const component = render(
+    <SimpleBlog blog={blog}/>
+  )
+
+  const div = component.container.querySelector('.info')
+  expect(div).toHaveTextContent(
+    'Kel Elden'
+  )
+
 })

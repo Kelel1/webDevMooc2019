@@ -2,7 +2,7 @@ import React from 'react'
 
 const SimpleBlog = ({ blog, onClick }) => (
   <div>
-    <div>
+    <div className='info'>
       {blog.title} {blog.author}
     </div>
     <div className='likes'>
