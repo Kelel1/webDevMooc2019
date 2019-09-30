@@ -1,10 +1,8 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
+// eslint-disable-next-line no-unused-vars
 import { render, cleanup } from '@testing-library/react'
 import SimpleBlog from './SimpleBlog'
 
-
-afterEach(cleanup)
 
 test('renders title', () => {
 
