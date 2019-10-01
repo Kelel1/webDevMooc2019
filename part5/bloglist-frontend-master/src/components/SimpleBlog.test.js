@@ -1,6 +1,6 @@
 import React from 'react'
 // eslint-disable-next-line no-unused-vars
-import { render, cleanup } from '@testing-library/react'
+import { render, cleanup, fireEvent } from '@testing-library/react'
 import SimpleBlog from './SimpleBlog'
 
 
@@ -60,3 +60,4 @@ test('renders author', () => {
   )
 
 })
+

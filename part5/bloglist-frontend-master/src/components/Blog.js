@@ -30,7 +30,7 @@ const Blog = ({ blog, handleLikes, deleteBlog, user }) => {
         {blog.title} {blog.author} <br></br> {blog.url}
         <br></br> <div>{blog.likes} likes <button onClick={() => handleLikes(blog.id)}>like</button></div>
         <div>added by {blog.user['username']}</div>
-        {showDelete()}</div> : <div onClick={() => setClicked(true)}>
+        {showDelete()}</div> : <div className='default' onClick={() => setClicked(true)}>
         {blog.title} {blog.author}</div>}
     </div>
   )}
