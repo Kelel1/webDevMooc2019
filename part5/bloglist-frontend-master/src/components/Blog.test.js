@@ -32,3 +32,51 @@ test('clicking the like button twice, calls event handler twice', () => {
 
   expect(mockHandler.mock.calls.length).toBe(2)
 })
+
+test('only blog name and author shown by default', () => {
+
+  const blog = {
+    title: 'Testing with Jest',
+    author: 'Kel Elden',
+    user: { username: 'root' },
+    url: 'www.testingjest.com',
+    likes: 384
+  }
+
+  const mockHandler = jest.fn()
+
+  const component = render(
+    <Blog blog={blog} user={'root'} handleLikes={mockHandler}/>
+  )
+
+  const div = component.container.querySelector('.default')
+  expect(div).toHaveTextContent(
+    'Testing with Jest Kel Elden'
+  )
+
+
+})
+
+test('expanded blog info shown when clicked', () => {
+
+  const blog = {
+    title: 'Testing with Jest',
+    author: 'Kel Elden',
+    user: { username: 'root' },
+    url: 'www.testingjest.com',
+    likes: 384
+  }
+
+  const mockHandler = jest.fn()
+
+  const  component = render(
+    <Blog blog={blog} user={'root'} clicked={mockHandler}/>
+  )
+
+  const button = component.container.querySelector('.default')
+  fireEvent.click(button)
+
+  expect(button).toHaveTextContent(
+    'Testing with Jest Kel Elden www.testingjest.com 384 likes likeadded by root'
+  )
+})
