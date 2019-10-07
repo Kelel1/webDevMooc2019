@@ -25,7 +25,7 @@ const Blog = ({ blog, handleLikes, deleteBlog, user }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div className='blogs' style={blogStyle}>
       {clicked ? <div onClick={() => setClicked(false)}>
         {blog.title} {blog.author} <br></br> {blog.url}
         <br></br> <div>{blog.likes} likes <button onClick={() => handleLikes(blog.id)}>like</button></div>
