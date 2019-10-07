@@ -2,7 +2,7 @@ import React from 'react'
 import {
   render, waitForElement
 } from '@testing-library/react'
-jest.mock('../services/__mocks__/blogs')
+jest.mock('../services/blogs')
 import App from '../App'
 
 describe('<App />', () => {
