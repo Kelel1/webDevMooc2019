@@ -6,18 +6,14 @@ const Form = (props) => {
       <div>
           username
         <input
-          type="text"
-          value={props.username}
+          {...props.username}
           name="Username"
-          onChange={({ target }) => props.setUsername(target.value)}
         />
         <div>
           password
           <input
-            type="password"
-            value={props.password}
+            {...props.password}
             name="Password"
-            onChange={({ target }) => props.setPassword(target.value)}
           />
         </div>
       </div>
@@ -27,10 +23,10 @@ const Form = (props) => {
 }
 Form.propTypes = {
   handleLogin: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  setUsername: PropTypes.func.isRequired,
-  setPassword: PropTypes.func.isRequired
+  // username: PropTypes.string.isRequired,
+  // password: PropTypes.string.isRequired,
+  // setUsername: PropTypes.func.isRequired,
+  // setPassword: PropTypes.func.isRequired
 
 }
 
