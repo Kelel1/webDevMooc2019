@@ -11,7 +11,7 @@ export const useField = (type) => {
     setValue('')
   }
 
-  const toreturn = {
+  const to_return = {
     reset
   }
 
@@ -19,7 +19,7 @@ export const useField = (type) => {
     type,
     value,
     onChange,
-    toreturn
+    to_return
   }
 }
 

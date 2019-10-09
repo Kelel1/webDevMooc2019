@@ -53,10 +53,8 @@ const App = () => {
       )
       blogService.setToken(user.token)
       setUser(user)
-      // setUsername('')
-      // setPassword('')
-      username.toreturn.reset()
-      password.toreturn.reset()
+      username.to_return.reset()
+      password.to_return.reset()
     } catch (exception) {
       setErrorMessage('Wrong username or password')
       setTimeout(() => {
@@ -81,12 +79,9 @@ const App = () => {
       setTimeout(() => {
         setValidation(null)
       }, 5000)
-      // setTitle('')
-      // setAuthor('')
-      // setUrl('')
-      title.toreturn.reset()
-      author.toreturn.reset()
-      url.toreturn.reset()
+      title.to_return.reset()
+      author.to_return.reset()
+      url.to_return.reset()
     } catch(exception) {
       setTimeout(() => {
         setErrorMessage(null)
