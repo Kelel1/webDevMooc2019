@@ -14,11 +14,14 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [validation, setValidation] = useState(null)
   const [user, setUser] = useState(null)
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+  // const [title, setTitle] = useState('')
+  // const [author, setAuthor] = useState('')
+  // const [url, setUrl] = useState('')
   const username = useField('text')
   const password = useField('password')
+  const title = useField('text')
+  const author = useField('text')
+  const url = useField('text')
 
 
   useEffect(() => {
@@ -52,6 +55,8 @@ const App = () => {
       setUser(user)
       // setUsername('')
       // setPassword('')
+      username.toreturn.reset()
+      password.toreturn.reset()
     } catch (exception) {
       setErrorMessage('Wrong username or password')
       setTimeout(() => {
@@ -65,9 +70,9 @@ const App = () => {
     event.preventDefault()
     try {
       const newObject = {
-        'title': title,
-        'author': author,
-        'url': url
+        'title': title.value,
+        'author': author.value,
+        'url': url.value
       }
       const createBlog = await blogService
         .create(newObject)
@@ -76,9 +81,12 @@ const App = () => {
       setTimeout(() => {
         setValidation(null)
       }, 5000)
-      setTitle('')
-      setAuthor('')
-      setUrl('')
+      // setTitle('')
+      // setAuthor('')
+      // setUrl('')
+      title.toreturn.reset()
+      author.toreturn.reset()
+      url.toreturn.reset()
     } catch(exception) {
       setTimeout(() => {
         setErrorMessage(null)
@@ -147,7 +155,7 @@ const App = () => {
       <h2>Create a new blog</h2>
       <Toggable buttonLabel='Create'>
         <CreateBlog handleCreate = { handleCreate } title = { title }
-          author = { author } url = { url } setTitle = { setTitle } setAuthor = { setAuthor } setUrl = { setUrl }/>
+          author = { author } url = { url } />
       </Toggable>
       {sortBlogs(blogs)}
       {blogList()}

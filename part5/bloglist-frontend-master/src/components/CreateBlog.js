@@ -5,27 +5,21 @@ const CreateBlog = (props) => {
       <div>
                 title:
         <input
-          type="text"
-          value={props.title}
+          {...props.title}
           name="Title"
-          onChange={({ target }) => props.setTitle(target.value)}
         />
         <div>
                 author:
           <input
-            type="text"
-            value={props.author}
+            {...props.author}
             name="Author"
-            onChange={({ target }) => props.setAuthor(target.value)}
           />
         </div>
         <div>
                 url:
           <input
-            type="text"
-            value={props.url}
+            {...props.url}
             name="Url"
-            onChange={({ target }) => props.setUrl(target.value)}
           />
         </div>
       </div>
