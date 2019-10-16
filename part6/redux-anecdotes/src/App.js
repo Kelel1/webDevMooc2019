@@ -1,10 +1,12 @@
 import React from 'react';
+import { castVote } from './reducers/anecdoteReducer'
 
 const App = (props) => {
   const anecdotes = props.store.getState()
 
   const vote = (id) => {
-    console.log('vote', id)
+    console.log(id)
+    props.store.dispatch(castVote(id))
   }
 
   return (
