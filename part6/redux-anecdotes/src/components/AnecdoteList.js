@@ -4,11 +4,10 @@ import { showNotification, removeNotification } from '../reducers/notificationRe
 
 const ListAnecdotes = ({store}) => {
   const anecdotes = store.getState().anecdotes
-  // const notify = store.getState().notify
   const vote = (id) => {
     
     store.dispatch(castVote(id))
-    store.dispatch(showNotification(id))
+    store.dispatch(showNotification('You voted for: ', id))
     setTimeout(() => store.dispatch(removeNotification(id)),5000) 
   }
 

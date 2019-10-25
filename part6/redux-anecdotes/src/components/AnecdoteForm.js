@@ -14,7 +14,7 @@ const NewAnecdote = (props) => {
     let b = a.indexOf(a.find(n => n.content === event.target.anecdote.value))
     const c = {...a[b]}
 
-    props.store.dispatch(showNotification(c.id))
+    props.store.dispatch(showNotification('You created: ', c.id))
     setTimeout(() => props.store.dispatch(removeNotification(c.id)), 5000) 
     event.target.anecdote.value = ''
   }

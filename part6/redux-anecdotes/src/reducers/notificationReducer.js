@@ -1,19 +1,28 @@
-
-const notifyReducer = (state = 0, action) => {
+const initialState = {
+  notify: 0,
+  message: ''
+}
+const notifyReducer = (state = initialState, action) => {
   switch(action.type) {
     case'NOTIFY':
-      return state = action.notify
+      const newNote  = {
+        message: action.data.message,
+        notify: action.data.notify}
+      return newNote
     case'REMOVE':
-      return state = 0
+      return state = {}
     default:
       return state
   }
 }      
 
-export const showNotification = notify => {
+export const showNotification = (message, notify) => {
   return {
     type: 'NOTIFY',
-    notify
+    data: {
+      message,
+      notify
+    }
   }
 }
 
