@@ -1,11 +1,15 @@
 import React from 'react'
 import { castVote } from '../reducers/anecdoteReducer'
+import { showNotification, removeNotification } from '../reducers/notificationReducer'
 
-const ListAnecdotes = (props) => {
-  const anecdotes = props.store.getState()
+const ListAnecdotes = ({store}) => {
+  const anecdotes = store.getState().anecdotes
+  // const notify = store.getState().notify
   const vote = (id) => {
-    console.log(id)
-    props.store.dispatch(castVote(id))
+    
+    store.dispatch(castVote(id))
+    store.dispatch(showNotification(id))
+    setTimeout(() => store.dispatch(removeNotification(id)),5000) 
   }
 
   return (
