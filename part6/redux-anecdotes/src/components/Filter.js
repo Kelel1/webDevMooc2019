@@ -1,8 +1,10 @@
-import React from 'react'
+import React      from 'react'
+import { filter } from '../reducers/filterReducer'
 
 const Filter = (props) => {
   const handleChange = (event) => {
-    // input-field value is in variable event.target.value
+
+    props.store.dispatch(filter(event.target.value))
   }
   const style = {
     marginBottom: 10
@@ -10,7 +12,7 @@ const Filter = (props) => {
 
   return (
     <div style={style}>
-      filter <input onChange={handleChange} />
+      Search Anecdotes <input onChange={handleChange} />
     </div>
   )
 }

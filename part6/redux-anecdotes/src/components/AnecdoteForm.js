@@ -1,6 +1,8 @@
-import React from 'react'
-import { createAnecdote } from '../reducers/anecdoteReducer'
-import { removeNotification, showNotification } from '../reducers/notificationReducer'
+import   React                   from 'react'
+import { createAnecdote     }    from '../reducers/anecdoteReducer'
+import { removeNotification,
+         showNotification   }    from '../reducers/notificationReducer'
+
 
 const NewAnecdote = (props) => {
   const addAnecdote = (event) => {
@@ -21,7 +23,7 @@ const NewAnecdote = (props) => {
 
   return(
     <div>
-      <h2>create new</h2>
+      <h2>Create New Anecdote</h2>
       <form onSubmit={addAnecdote}>
           <input name='anecdote' />
           <button type='submit'>create</button>

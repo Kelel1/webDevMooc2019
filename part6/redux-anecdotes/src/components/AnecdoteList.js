@@ -1,9 +1,11 @@
-import React from 'react'
-import { castVote } from '../reducers/anecdoteReducer'
+import React                                    from 'react'
+import { castVote }                             from '../reducers/anecdoteReducer'
 import { showNotification, removeNotification } from '../reducers/notificationReducer'
 
 const ListAnecdotes = ({store}) => {
   const anecdotes = store.getState().anecdotes
+  const search = store.getState().search
+  const filterTarget = anecdotes.filter((n) => n.content.toLowerCase().includes(search.search))
   const vote = (id) => {
     
     store.dispatch(castVote(id))
@@ -12,7 +14,7 @@ const ListAnecdotes = ({store}) => {
   }
 
   return (
-    anecdotes.map(anecdote =>
+    filterTarget.map(anecdote =>
       <div key={anecdote.id}>
         <div>
           {anecdote.content}
