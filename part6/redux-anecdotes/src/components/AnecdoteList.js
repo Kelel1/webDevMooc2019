@@ -3,8 +3,12 @@ import { castVote }                             from '../reducers/anecdoteReduce
 import { showNotification, removeNotification } from '../reducers/notificationReducer'
 
 const ListAnecdotes = ({store}) => {
+  
+  // Get states if anecdotes and store
   const anecdotes = store.getState().anecdotes
   const search = store.getState().search
+
+  //  Filter anecdotes based on search
   const filterTarget = anecdotes.filter((n) => n.content.toLowerCase().includes(search.search))
   const vote = (id) => {
     
