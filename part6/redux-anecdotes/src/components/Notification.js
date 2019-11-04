@@ -1,11 +1,14 @@
-import React from 'react'
-const Notification = ({ store }) => {
-  const anecdotes = store.getState().anecdotes
-  const display = store.getState().notify
+import   React     from 'react'
+import { connect } from 'react-redux'
+
+const Notification = (props) => {
+  const anecdotes = props.anecdotes
+  const display = props.notify
 
   
   const a  = [...anecdotes]
-  const b = a.indexOf(a.find(n => n.id === display.notify))
+ 
+  const b = a.indexOf(a.find(n => n.id === display.notify))  
   const c = {...a[b]}
   
   const showVoted = () => {
@@ -30,5 +33,16 @@ const Notification = ({ store }) => {
   )
   
 }
+const mapStateToProps = (state) => {
+  // sometimes it is useful to console log from mapStateToProps
+  // console.log(state)
+  return {
+    anecdotes: state.anecdotes,
+    notify: state.notify,
+    search: state.search
+  }
+}
 
-export default Notification
+const ConnectedNotification = connect(mapStateToProps)(Notification)
+
+export default ConnectedNotification

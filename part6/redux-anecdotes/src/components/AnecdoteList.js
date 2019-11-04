@@ -1,20 +1,17 @@
-import React                                    from 'react'
-import { castVote }                             from '../reducers/anecdoteReducer'
+import   React                                  from 'react'
+import { connect                              } from 'react-redux'
+import { castVote                             } from '../reducers/anecdoteReducer'
 import { showNotification, removeNotification } from '../reducers/notificationReducer'
 
-const ListAnecdotes = ({store}) => {
-  
-  // Get states if anecdotes and store
-  const anecdotes = store.getState().anecdotes
-  const search = store.getState().search
-
-  //  Filter anecdotes based on search
-  const filterTarget = anecdotes.filter((n) => n.content.toLowerCase().includes(search.search))
+const AnnecdoteList = (props) => {
+  const anecdotes = props.anecdotes
+  const filter = props.search
+  const filterTarget = anecdotes.filter((n) => n.content.toLowerCase().includes(filter.search))
   const vote = (id) => {
     
-    store.dispatch(castVote(id))
-    store.dispatch(showNotification('You voted for: ', id))
-    setTimeout(() => store.dispatch(removeNotification(id)),5000) 
+    props.castVote(id)
+    props.showNotification('You voted for: ', id)
+    setTimeout(() => props.removeNotification(id),5000) 
   }
 
   return (
@@ -32,4 +29,22 @@ const ListAnecdotes = ({store}) => {
   )
 }
 
-export default ListAnecdotes
+const mapStateToProps = (state) => {
+ 
+  return {
+    anecdotes: state.anecdotes,
+    notify: state.notify,
+    search: state.search
+  }
+}
+const mapDispatchToProps = {
+  castVote,
+  showNotification,
+  removeNotification
+}
+
+const ConnectedAnecdotes = connect(
+  mapStateToProps,
+  mapDispatchToProps  
+)(AnnecdoteList)
+export default ConnectedAnecdotes

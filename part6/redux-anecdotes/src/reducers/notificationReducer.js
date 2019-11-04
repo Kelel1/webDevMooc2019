@@ -6,8 +6,8 @@ const notifyReducer = (state = initialState, action) => {
   switch(action.type) {
     case'NOTIFY':
       const newNote  = {
-        message: action.data.message,
-        notify: action.data.notify}
+        message: action.message,
+        notify: action.notify}
       return newNote
     case'REMOVE':
       return state = {}
@@ -19,10 +19,8 @@ const notifyReducer = (state = initialState, action) => {
 export const showNotification = (message, notify) => {
   return {
     type: 'NOTIFY',
-    data: {
-      message,
-      notify
-    }
+    message,
+    notify
   }
 }
 

@@ -6,7 +6,7 @@ const filterReducer = (state = initialstate, action) => {
   switch(action.type) {
     case'SEARCH':
       const toSearch = {
-        search: action.data.search.toLowerCase()
+        search: action.search.toLowerCase()
       }
       return toSearch
     default:
@@ -18,9 +18,7 @@ const filterReducer = (state = initialstate, action) => {
 export const filter = (search) => {
   return {
     type: 'SEARCH',
-    data: {
-      search
-    }
+    search
   }
 }
 
