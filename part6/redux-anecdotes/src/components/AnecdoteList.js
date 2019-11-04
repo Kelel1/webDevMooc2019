@@ -4,9 +4,7 @@ import { castVote                             } from '../reducers/anecdoteReduce
 import { showNotification, removeNotification } from '../reducers/notificationReducer'
 
 const AnnecdoteList = (props) => {
-  const anecdotes = props.anecdotes
-  const filter = props.search
-  const filterTarget = anecdotes.filter((n) => n.content.toLowerCase().includes(filter.search))
+
   const vote = (id) => {
     
     props.castVote(id)
@@ -15,7 +13,7 @@ const AnnecdoteList = (props) => {
   }
 
   return (
-    filterTarget.map(anecdote =>
+    props.anecdotesToShow.map(anecdote =>
       <div key={anecdote.id}>
         <div>
           {anecdote.content}
@@ -29,12 +27,14 @@ const AnnecdoteList = (props) => {
   )
 }
 
+const filterTarget = ({anecdotes, search}) => anecdotes.filter((n) => n.content.toLowerCase().includes(search.search))
+
 const mapStateToProps = (state) => {
  
   return {
     anecdotes: state.anecdotes,
     notify: state.notify,
-    search: state.search
+    anecdotesToShow: filterTarget(state)
   }
 }
 const mapDispatchToProps = {
