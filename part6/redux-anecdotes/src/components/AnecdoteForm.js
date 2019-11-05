@@ -3,34 +3,21 @@ import { connect            }    from 'react-redux'
 import { createAnecdote     }    from '../reducers/anecdoteReducer'
 import { removeNotification,
          showNotification   }    from '../reducers/notificationReducer'
+import anecdoteService           from '../services/anecdotes'   
 
 
 const AnecdoteForm = (props) => {
 
-  const anecdotes = props.anecdotes
-
-  const addAnecdote = (event) => {
+  const addAnecdote = async (event) => {
     event.preventDefault()
     
-    props.createAnecdote(event.target.anecdote.value)
-    
-    // Search by content for new anecdote in store
-    /**
-     * When trying to create a new anecdote, the event handler
-     * fails to get the updated state from the store,
-     * so is unable to display the notification for the newly
-     * created anecdote.
-     * I was able to do this prior to implementing connect however.
-     */
-    
-    const a  = [...anecdotes]
-    let b = a.length - 1  // The new anecdote should be that last one in the array
-    const c = {...a[b]}
-
-    props.showNotification('You created: ', c.id)
-    setTimeout(() => props.removeNotification(c.id), 5000) 
+    const content = event.target.anecdote.value
     event.target.anecdote.value = ''
+    const newAnecdote = await anecdoteService.createNew(content)
+    props.createAnecdote(newAnecdote)
 
+    props.showNotification('You created: ', newAnecdote.id)
+    setTimeout(() => props.removeNotification(newAnecdote.id), 5000) 
     
   }
 

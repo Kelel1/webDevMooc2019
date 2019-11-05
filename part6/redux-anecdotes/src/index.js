@@ -7,6 +7,7 @@ import App               from './App'
 import anecdoteReducer   from './reducers/anecdoteReducer'
 import notifyReducer     from './reducers/notificationReducer'
 import searchReducer     from './reducers/filterReducer'
+// import anecdoteService   from './services/anecdotes'
 
 const reducer = combineReducers({
   anecdotes: anecdoteReducer,
@@ -15,6 +16,10 @@ const reducer = combineReducers({
 }) 
 
 const store = createStore(reducer)
+
+// anecdoteService.getAll().then(anecdotes =>
+//   store.dispatch(initializeAnecdote(anecdotes))
+// )
 
 store.subscribe(() => console.log(store.getState()))
 
