@@ -5,10 +5,11 @@ const initialState = {
 const notifyReducer = (state = initialState, action) => {
   switch(action.type) {
     case'NOTIFY':
-      const newNote  = {
+      
+      return {
         message: action.message,
-        notify: action.notify}
-      return newNote
+        notify:  action.notify
+      }
     case'REMOVE':
       return state = {}
     default:
@@ -17,18 +18,27 @@ const notifyReducer = (state = initialState, action) => {
 }      
 
 export const showNotification = (message, notify) => {
-  return {
-    type: 'NOTIFY',
-    message,
-    notify
+  return async dispatch => {  
+    dispatch({
+      type: 'NOTIFY',
+       message,
+    })
+
+    setTimeout(() => {
+      dispatch({
+        type: 'REMOVE',
+      })
+    }, notify)
+
+    
+      
   }
 }
 
-export const removeNotification = remove => {
-  return {
-    type: 'REMOVE',
-    remove
-  }
-}
+// export const removeNotification = () => {
+//   return {
+//     type: 'REMOVE',
+//   }
+// }
 
 export default notifyReducer

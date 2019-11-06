@@ -2,17 +2,10 @@ import   React     from 'react'
 import { connect } from 'react-redux'
 
 const Notification = (props) => {
-  const anecdotes = props.anecdotes
   const display = props.notify
-
-  
-  const a  = [...anecdotes]
- 
-  const b = a.indexOf(a.find(n => n.id === display.notify))  
-  const c = {...a[b]}
   
   const showVoted = () => {
-    return c.content
+    return display.message
   }
   const style = {
     border: 'solid',
@@ -24,7 +17,7 @@ const Notification = (props) => {
   if (showVoted()) {
     return (
       <div style={style}>
-        {`${display.message} ${showVoted()}`}
+        {`${showVoted()}`}
       </div>
     )
   } 

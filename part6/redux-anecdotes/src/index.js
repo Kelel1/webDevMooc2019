@@ -3,7 +3,7 @@ import ReactDOM          from 'react-dom'
 import { Provider }      from 'react-redux'
 import App               from './App'
 import store             from './store'    
-// import anecdoteService   from './services/anecdotes'
+
 
 const render = () => {
   ReactDOM.render(
@@ -13,6 +13,6 @@ const render = () => {
     document.getElementById('root')
   )
 }
-
+console.log(store.getState())
 render()
 store.subscribe(render)

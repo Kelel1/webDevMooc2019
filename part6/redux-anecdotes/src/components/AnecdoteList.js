@@ -1,15 +1,15 @@
 import   React                                  from 'react'
 import { connect                              } from 'react-redux'
 import { castVote                             } from '../reducers/anecdoteReducer'
-import { showNotification, removeNotification } from '../reducers/notificationReducer'
+import { showNotification                     } from '../reducers/notificationReducer'
 
 const AnnecdoteList = (props) => {
 
-  const vote = (id) => {
+  const vote = (id, content) => {
     
     props.castVote(id)
-    props.showNotification('You voted for: ', id)
-    setTimeout(() => props.removeNotification(id),5000) 
+    props.showNotification(`You voted for: ${content}`, 10)
+    // setTimeout(() => props.removeNotification(content),5000) 
   }
 
   return (
@@ -20,7 +20,7 @@ const AnnecdoteList = (props) => {
         </div>
         <div>
           has {anecdote.votes}
-          <button onClick={() => vote(anecdote.id)}>vote</button>
+          <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
         </div>
       </div>
     )
@@ -40,7 +40,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   castVote,
   showNotification,
-  removeNotification
 }
 
 const ConnectedAnecdotes = connect(
