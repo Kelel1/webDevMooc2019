@@ -8,8 +8,7 @@ const AnnecdoteList = (props) => {
   const vote = (id, content) => {
     
     props.castVote(id)
-    props.showNotification(`You voted for: ${content}`, 10)
-    // setTimeout(() => props.removeNotification(content),5000) 
+    props.showNotification(`You voted for: ${content}`, 5000)
   }
 
   return (

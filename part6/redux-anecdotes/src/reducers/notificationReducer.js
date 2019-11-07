@@ -35,10 +35,4 @@ export const showNotification = (message, notify) => {
   }
 }
 
-// export const removeNotification = () => {
-//   return {
-//     type: 'REMOVE',
-//   }
-// }
-
 export default notifyReducer

@@ -14,8 +14,7 @@ const AnecdoteForm = (props) => {
     props.createAnecdote(content)
     
 
-    props.showNotification(`You created: ${content}`, 10)
-    // setTimeout(() => props.removeNotification(content), 5000) 
+    props.showNotification(`You created: ${content}`, 5000)
     
   }
 
