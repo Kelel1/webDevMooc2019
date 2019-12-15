@@ -1,16 +1,15 @@
 {
-  "name": "grahpql",
+  "name": "graphql_practice",
   "version": "1.0.0",
-  "description": "graphql practice",
+  "description": "learning graphql",
   "main": "index.js",
-  "dependencies": {
-    "apollo-server": "^2.9.13",
-    "graphql": "^14.5.8"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kern Elder",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.9.13",
+    "graphql": "^14.5.8"
+  }
 }
