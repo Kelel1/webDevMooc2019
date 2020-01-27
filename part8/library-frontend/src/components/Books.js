@@ -5,7 +5,7 @@ const Books = (props) => {
     return null
   }
 
-  const books = books = [
+  const books = [
     {
       title: 'Clean Code',
       published: 2008,
