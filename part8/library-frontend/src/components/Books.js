@@ -1,15 +1,15 @@
 import React from 'react'
 
-const Books = (props) => {
-  if (!props.show) {
-    return null
+const Books = ({ result }) => {
+  if (result.loading) {
+    return <div>loading...</div>
   }
 
-  const books = []
+  const books = result.data.allBooks
 
   return (
     <div>
-      <h2>books</h2>
+      <h2>Books</h2>
 
       <table>
         <tbody>
