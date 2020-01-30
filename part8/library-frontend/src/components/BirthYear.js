@@ -1,4 +1,14 @@
-import React, { useState } from 'react'
+import React, { Component, useState } from 'react'
+import Select from 'react-select'
+
+const options = [
+
+  {value: 'Robert Martin', label: 'Robert Martin'},
+  {value: 'Martin Fowler', label: 'Martin Fowler'},
+  {value: 'Fyodor Dostoevsky', label: 'Fyodor Dostoevsky'},
+  {value: 'Joshua Kerievsky', label: 'Joshua Kerievsky'},
+  {value: 'Sandi Metz', label: 'Sandi Metz'},
+]
 
 const BirthYear = (props) => {
 
@@ -25,10 +35,11 @@ const BirthYear = (props) => {
         <form onSubmit={submit}>
           <div>
             Name
-            <input
+            {/* <input
               value={name}
               onChange={({ target }) => setName(target.value)}
-            />
+            /> */}
+            <Select  options={options} onChange={(target) => setName(target.value)}/>            
           </div>
           <div>
             Born
