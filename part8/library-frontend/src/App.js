@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
+import BirthYear from './components/BirthYear'
 import { Query, Mutation } from 'react-apollo'
 import { gql } from 'apollo-boost'
 
@@ -38,7 +39,15 @@ const CREATE_BOOK = gql`
     }
   }
 `
-
+const EDIT_BIRTHYEAR = gql`
+  
+mutation editAuthor($name: String!, $born: Int!) {
+  editAuthor(name: $name, born: $born) {
+    name
+    born
+  }  
+} 
+`
 
 const App = () => {
   const [page, setPage] = useState('authors')
@@ -56,6 +65,7 @@ const App = () => {
         <Query query={ALL_AUTHORS}>
           {(result) => <Authors show={page === 'authors'} result={result} />}
         </Query>
+        
       </div>
     )
   } else if (page === 'books') {
@@ -90,6 +100,15 @@ const App = () => {
             />
           }
 
+        </Mutation>
+        <Mutation
+          mutation={EDIT_BIRTHYEAR}
+        >
+          {(editAuthor) => 
+            <BirthYear
+              editAuthor={editAuthor}
+            />
+          }
         </Mutation>
       </div>
     )

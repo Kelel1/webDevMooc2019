@@ -1,18 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const Authors = ({ result, props }) => {
+const Authors = ({ result }) => {
 
-  const [name, setName] = useState('')
-  const [born, setBorn] = useState('')
-
-  const submit = async (e) => {
-    e.preventDefault()
-
-    setName('')
-    setBorn('')
-  }
-
-  
   
   if (result.loading) {
     return <div>loading...</div>
@@ -27,10 +16,10 @@ const Authors = ({ result, props }) => {
           <tr>
             <th></th>
             <th>
-              born
+              Born
             </th>
             <th>
-              books
+              Books
             </th>
           </tr>
           {authors.map(a =>
@@ -42,26 +31,7 @@ const Authors = ({ result, props }) => {
           )}
         </tbody>
       </table>
-      <h2>Set birthyear</h2>
-      <div>
-        <form onSubmit={submit}>
-          <div>
-            name
-            <input
-              value={name}
-              onChange={({ target }) => setName(target.value)}
-            />
-          </div>
-          <div>
-            born
-            <input
-              value={born}
-              onChange={({ target }) => setBorn(Number(target.value))}
-            />
-          </div>
-          <button type="submit">update author</button>
-        </form>
-      </div>
+      
 
     </div>
   )
