@@ -124,16 +124,19 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     allAuthors: () => authors,  
-    // old allbooks
-    // allBooks: (root, args) => {
+    
+    allBooks: (root, args) => {
 
-    //   const authors = args.author? books.filter(a => a.author === args.author): 
-    //   books.filter(x => x.genres.find(a => a === args.genre))
+      if (!args.author) {
+        return books
+      }
 
-    //   return authors
+      const bookList = args.author? books.filter(a => a.author === args.author): 
+      books.filter(x => x.genres.find(a => a === args.genre))
 
-    // },
-    allBooks: () => books,
+      return bookList
+
+    },
     authorCount: () => authors.length,
     bookCount: () => books.length
   },
